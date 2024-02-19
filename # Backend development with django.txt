@@ -1,0 +1,64 @@
+# Backend development with django
+	- Models
+	- Views(Api) (DRF)
+	- Urls(Api) (DRF)
+	- Serializer
+
+# Relationship type
+- One to Many
+	- If there are two tables A and B and A table is related on B table as One to Many relationship then A table data can have multiple relationship with B table data and a B table data can only have one A table data.
+
+- One to One
+	- If there are two tables A and B and A table is related on B table as One to One relationship then A table data can have one relationship with B table data and a B table data can also only have one A table data as a relation.
+
+- Many to Many
+	- If there are two tables A and B and A table is related on B table as Many to Many relationship then A table data can have multiple relationship with B table data and a B table data can also only have multiple A table data as a relation.
+
+
+
+# Project (HMS)
+- Management
+	- RoomType
+		- name (CharField)
+
+	- Room
+		- name (CharField)
+		- description (TextField)
+		- type (Otm , RoomType)
+		- floor (CharField)
+		- status (CharField)
+
+
+- Restaurant
+	- Menu
+		- name (CharField)
+
+	- Food
+		- name (CharField)
+		- description (TextField)
+		- menu (OTM, Menu)
+
+	
+- Frontdesk
+	- Customer
+		- name (CharField)
+		- address (TextField)
+		- contact_no (IntegarField)
+		- email (EmailField)
+
+	- CustomerRoom
+		- customer (OTM,Customer)
+		- room (OTM,Room)
+
+- Accounting
+
+	- Bill
+		- customer (OTM, Customer)
+		- total_amount (IntegarField)
+
+	- Payment
+		- bill (OTO, Bill)
+		- paid_amount (IntegarField)
+
+	- User
+		- We will use django user table
