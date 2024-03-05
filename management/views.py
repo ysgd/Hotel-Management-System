@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
-from .serializers import RoomTypeSerializer, RoomSerializer, UserSerializer
+from .serializers import RoomTypeSerializer, RoomSerializer, UserSerializer, GroupSerializer
 from .models import RoomType, Room, User
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
@@ -9,9 +9,16 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import AllowAny
 from rest_framework import filters
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
+
+class GroupView(ModelViewSet):
+  queryset = Group.objects.all()
+  serializer_class = GroupSerializer
+  permission_classes = [AllowAny]
+  
 class RoomTypeView(ModelViewSet):
   queryset = RoomType.objects.all()
   serializer_class = RoomTypeSerializer
@@ -74,7 +81,9 @@ class UserView(ModelViewSet):
     if serializer.is_valid():
       password = request.data.get('password')
       hash_password = make_password(password)
-      serializer.save(hash_password)
+      a = serializer.save()
+      a.password = hash_password
+      a.save()
       return Response("user created")
     else:
       return Response(serializer.errors)
